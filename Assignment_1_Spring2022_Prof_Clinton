@@ -181,8 +181,10 @@ namespace ProgrammingAssignment1
                 //similarly, this loop is for adding the right diagonal elements of the grid.
                 for(int i=0; i<l1; i++)
                 {
+                //Used this especially as the left diagonal sum is calculating the middle term and for not repeating it again.
                     if (i != l1 - i - 1)
                     {
+                        //because for right diagonal elements the left index will be increasing, while the right index keeps decreasing by 1. 
                         sum2 = sum2 + bulls_grid[i, l1 - i - 1];
                     }
                     
