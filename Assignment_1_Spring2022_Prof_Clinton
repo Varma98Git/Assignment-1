@@ -1,0 +1,289 @@
+using System;
+
+namespace ProgrammingAssignment1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Question1.....
+            Console.WriteLine("Q1: Enter the string:");
+            string s = Console.ReadLine();
+            string final_string = RemoveVowels(s);
+            Console.WriteLine("Final string after removing the Vowels: {0}", final_string);
+            Console.WriteLine();
+            //Question2......
+            string[] bulls_string1 = new string[] { "University", "of", "SouthFlorida" };
+            string[] bulls_string2 = new string[] { "UniversityofSouthFlorida" };     
+            bool flag = ArrayStringsAreEqual(bulls_string1, bulls_string2);
+            Console.WriteLine("Q2");
+            if (flag)
+            {
+                Console.WriteLine("Yes, Both the array’s represent the same string");
+            }
+            else
+            {
+                Console.WriteLine("No, Both the array’s don’t represent the same string ");
+            }
+            //Q3
+            int[] bull_bucks = new int[] { 1, 2,3,3,4 };
+            int unique_sum = SumOfUnique(bull_bucks);
+            Console.WriteLine("Q3:");
+            Console.WriteLine("Sum of Unique Elements in the array are :{0}", unique_sum);
+            Console.WriteLine();
+            //Q4:
+            int[,] bulls_grid = new int[,] { { 1, 2, 3},{ 4, 5, 6},{ 7, 8, 9 } };
+            Console.WriteLine("Q4:");
+            int diagSum = DiagonalSum(bulls_grid);
+            Console.WriteLine("The sum of diagonal elements in the bulls grid is {0}:", diagSum);
+            Console.WriteLine();
+            //Q5:
+            Console.WriteLine("Q5:");
+            String bulls_string = "codeleet";
+            int[] indices = { 4,5,6,7,0,2,1,3 };
+            String rotated_string = RestoreString(bulls_string, indices);
+            Console.WriteLine("The  Final string after rotation is {0}", rotated_string);
+            Console.WriteLine();
+            //Q6:
+            string bulls_string6 = "ZimmermanSchoolOfAdvertising";
+            char ch = 'x';
+            string reversed_string = ReversePrefix(bulls_string6, ch);
+            Console.WriteLine("Q6:");
+            Console.WriteLine("Resultant string are reversing the prefix:{0}", reversed_string);
+            Console.WriteLine();
+        }
+
+
+
+        private static bool ArrayStringsAreEqual(string[] bulls_string1, string[] bulls_string2)
+        {
+            try 
+            {
+                string string1 = "";
+                string string2 = "";
+                //Concatenating individual string array elements to new empty strings.
+                for (int i = 0; i < bulls_string1.Length; i++)
+                {
+                    string1 = string1 + bulls_string1[i];
+                }
+                for (int i = 0; i < bulls_string2.Length; i++)
+                {
+                    string2 = string2 + bulls_string2[i];
+                }
+                //Returning True if both the final strings are equal, else false.
+                if (string1 == string2)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            
+        }
+        private static string RemoveVowels(string s)
+        {
+            try
+            {           
+                    string final_string = "";
+                //Comparing each letter of the string whether it is vowel and appending to the new empty string if its not vowel.
+                    for (int i = 0; i < s.Length; i++)
+                    {
+                        if (s[i] != 'a' && s[i] != 'e' && s[i] != 'i' && s[i] != 'o' && s[i] != 'u')
+                        {
+                            final_string = final_string + s[i];
+
+                        }
+                    }
+                //Here we return the final new string that is appended with consonants.
+                return final_string;   
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+    private static int SumOfUnique(int[] bull_bucks)
+        {
+            try
+            {
+                int sum = 0;
+                int count = 0;
+                for (int i = 0; i < bull_bucks.Length; i++)
+                {
+                    bool flag = false;
+                    //Comparing each number in the array to detect unique numbers.
+                    for (int j = 0; j < bull_bucks.Length; j++)
+                    {
+                        //As the same number might be compared to itself, used the if statement to ignore those comparisons
+                        if(bull_bucks[i]==bull_bucks[j] && i == j)
+                        {
+                            count = 0;
+
+                        }
+                        //Now if the numbers compared are equal, flag will be changed so it cannot be added to the sum.
+                        else if (bull_bucks[i] == bull_bucks[j] && i!=j)
+                        {
+                            flag = true;
+                        }
+                    }
+                    //Number goes to this if statement if its unique and gets added to the sum.
+                    if (flag == false)
+                    {
+                        count = count + 1;
+                        sum = sum + bull_bucks[i];
+                    }
+                }
+                //Will return 0, if all the numbers are not unique.
+                if (count == 0)
+                {
+                    return 0;
+                }
+                //will return the sum.
+                else
+                {
+                    return sum;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private static int DiagonalSum(int[,] bulls_grid)
+        {
+            try
+            {
+                // write your code here.
+                int sum1 = 0;
+                int sum2 = 0;
+                int l1 = bulls_grid.GetLength(0);
+                //This loop is created to add left diagonal elements of the grid.
+                for(int i = 0; i < l1; i++)
+                {
+                    for(int j = 0; j < l1; j++)
+                    {
+                        //As the left diagonal indices will be (1,1),(2,2)..., I have taken condition of i=j.
+                        if (i == j)
+                        {
+                            sum1 = sum1 + bulls_grid[i, j];
+                        }                  
+                    }
+                }
+                //similarly, this loop is for adding the right diagonal elements of the grid.
+                for(int i=0; i<l1; i++)
+                {
+                    if (i != l1 - i - 1)
+                    {
+                        sum2 = sum2 + bulls_grid[i, l1 - i - 1];
+                    }
+                    
+                }
+                return sum1+sum2;
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("An error occured: " + e.Message);
+                throw;
+            }
+
+        }
+
+        private static string RestoreString(string bulls_string, int[] indices)
+        {
+            try
+            {
+                // write your code here.
+                //Created new character array which is the length of our input string.
+                char[] s = new char[bulls_string.Length];
+                string newstring = "";
+                //storing the string elements in the particular input indices location of character array.
+                for (int i = 0; i < bulls_string.Length; i++)
+                {
+                    s[indices[i]] = bulls_string[i];
+                }
+                //appending the new string now with elements of character array that are arranged previously as required.
+                for(int i = 0; i < indices.Length; i++)
+                {
+                    newstring = newstring + s[i];
+                }
+                
+                return newstring;
+               
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+
+        }
+        private static string ReversePrefix(string bulls_string6, char ch)
+        {
+            try
+            {
+                String prefix_string = "";
+                int ind = 0;
+                //Created flag boolean variable.
+                bool flag = false;
+                //Searching for the first appearance of given character in the given string and changing the flag for future usage.
+                for (int i = 0; i < bulls_string6.Length; i++)
+                {
+                    if (bulls_string6[i] == ch)
+                    {
+                        ind = i;
+                        flag = true;
+                        break;
+                    }
+                }
+                //returns abcd if the character is not there in the string, as the flag will remain false.
+                if (flag == false)
+                {
+                    return "abcd";
+                }
+
+                else
+                {
+                    //Now as the character is found, the below for loop will append characters in reverse from the given string
+                    for (int j = ind; j > -1; j--)
+                    {
+                        prefix_string = prefix_string + bulls_string6[j];
+                    }
+                    //This for loop appends all the characters in the correct order from the location of character found.
+                    for (int i = ind + 1; i < bulls_string6.Length; i++)
+                    {
+                        prefix_string = prefix_string + bulls_string6[i];
+                    }
+                }               
+                return prefix_string;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+ 
